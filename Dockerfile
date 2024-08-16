@@ -8,10 +8,10 @@ RUN apt update && apt install
 
 # Copy package.json and package-lock.json to the working directory
 COPY package*.json ./
-COPY yarn.lock ./
+COPY package-lock.json ./
 
 # Install application dependencies
-RUN yarn install --frozen-lockfile
+RUN npm install --frozen-lockfile
 
 # Copy source
 COPY src ./src
@@ -19,10 +19,10 @@ COPY .env ./.env
 COPY tsconfig.json ./
 
 # Build the application
-RUN yarn build
+RUN npm run build
 
 # Expose port 3000
 EXPOSE 3000
 
 # Define the command to start the Node.js application
-CMD ["yarn", "run", "start:prod"]
+CMD ["npm", "run", "start:prod"]

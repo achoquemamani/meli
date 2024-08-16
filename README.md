@@ -58,6 +58,85 @@ $ npm run test:e2e
 $ npm run test:cov
 ```
 
+## Environments
+
+```bash
+Docker: for running the application in docker containers use "docker.env" in the root of the project with the name .env
+Execute the following instructions:
+docker compose up
+
+Docker database: for running the application in a docker container for db use "local.env" in the root of the project with the name .env.
+Execute the following instructions:
+docker compose up database  => for database
+yarn start:dev              => for node
+
+Production database: for running the application using production db use "prod.env" in the root of the project with the name .env.
+Execute the following instructions:
+yarn start:dev              => for node
+```
+
+### Docker
+
+```bash
+docker build -t my-node-app .
+docker run -p 3000:3000 my-node-app
+```
+
+### Docker compose
+
+```bash
+docker compose up 
+```
+
+### Swagger
+
+Documentation of endpoints
+```bash
+Link: http://localhost:3000/api
+```
+
+### Seed
+
+For executing the seed, it 's necesary to execute the following curl
+```bash
+curl -X 'POST' \
+  'http://localhost:3000/seed' \
+  -H 'accept: */*' \
+  -d ''
+```
+
+### Authentication Guide
+
+Use the following endpoint curl. This endpoints allows to get all users with different roles.
+```bash
+curl -X 'GET' \
+  'http://localhost:3000/users' \
+  -H 'accept: */*'
+```
+For to use application endpoints you need authenticate firstly. Use this endpoint for getting the token
+```bash
+curl -X 'POST' \
+  'http://localhost:3000/auth/login' \
+  -H 'accept: */*' \
+  -H 'Content-Type: application/json' \
+  -d '{
+  "username": ${user},
+  "password": ${password}"
+}'
+```
+
+## Diagram
+
+```mermaid
+flowchart LR
+
+A[Hard] -->|Text| B(Round)
+B --> C{Decision}
+C -->|One| D[Result 1]
+C -->|Two| E[Result 2]
+```
+
+
 ## Support
 
 Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
