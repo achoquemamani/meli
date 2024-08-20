@@ -2,16 +2,11 @@ import { Injectable, Logger } from '@nestjs/common';
 import { UsersService } from '../users/users.service';
 import { User } from '../users/user.entity';
 import { Role } from '../users/roles/role.enum';
-import { Loan } from '../loan/loan.entity';
-import { LoanService } from '../loan/loan.service';
 
 @Injectable()
 export class SeedService {
   private readonly LOGGER = new Logger(SeedService.name);
-  constructor(
-    private usersService: UsersService,
-    private loansService: LoanService,
-  ) {}
+  constructor(private usersService: UsersService) {}
 
   async initSeed(): Promise<void> {
     this.LOGGER.log('Executing seed');
@@ -28,14 +23,6 @@ export class SeedService {
       role: Role.Admin,
     });
     await this.usersService.create(admin);
-
-    const loan: Loan = new Loan({
-      fullname: 'Ariel Choque Mamani',
-      installmentsQuantity: 12,
-      installmentActual: 1,
-      amount: 1000,
-    });
-    await this.loansService.create(loan);
 
     this.LOGGER.log('Finishing seed');
   }
