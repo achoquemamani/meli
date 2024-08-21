@@ -8,4 +8,9 @@ export class City extends Model {
   @ApiProperty()
   @Column
   name: string;
+
+  public isCoastal() {
+    //TODO
+    return true;
+  }
 }

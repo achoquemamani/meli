@@ -5,6 +5,7 @@ import {
   Model,
   ForeignKey,
   BelongsTo,
+  HasMany,
 } from 'sequelize-typescript';
 import { City } from './city.entity';
 import { ContactMethod } from './contactMethod';
@@ -13,6 +14,7 @@ import { ContactMethod } from './contactMethod';
 export class Subscriber extends Model {
   id?: number;
 
+  @HasMany(() => ContactMethod, 'subscriberId')
   contactMethods: ContactMethod[];
 
   @ApiProperty()
@@ -29,4 +31,8 @@ export class Subscriber extends Model {
   @ApiProperty()
   @Column
   isEnabled: boolean;
+
+  public closeAccount(phrase: string) {
+    this.isEnabled = false;
+  }
 }

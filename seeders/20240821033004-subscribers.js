@@ -15,13 +15,33 @@ module.exports = {
       { returning: true },
     );
     const cityId = cities[0].id;
-    await queryInterface.bulkInsert(
+    const subscribers = await queryInterface.bulkInsert(
       'Subscribers',
       [
         {
           fullname: 'Ariel Choque',
           cityId: cityId,
           isEnabled: true,
+          createdAt: new Date(),
+          updatedAt: new Date(),
+        },
+        {
+          fullname: 'Jose Pepe',
+          cityId: cityId,
+          isEnabled: false,
+          createdAt: new Date(),
+          updatedAt: new Date(),
+        },
+      ],
+      { returning: true },
+    );
+    const subscriberId = subscribers[0].id;
+    await queryInterface.bulkInsert(
+      'ContactMethods',
+      [
+        {
+          name: 'Web',
+          subscriberId: subscriberId,
           createdAt: new Date(),
           updatedAt: new Date(),
         },

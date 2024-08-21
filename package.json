@@ -29,6 +29,7 @@
     "@nestjs/platform-express": "^10.0.0",
     "@nestjs/schedule": "^4.1.0",
     "@nestjs/swagger": "^7.4.0",
+    "@sequelize/core": "^7.0.0-alpha.41",
     "@types/sequelize": "^4.28.20",
     "bcrypt": "^5.1.1",
     "dotenv": "^16.4.5",
