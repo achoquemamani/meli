@@ -7,27 +7,40 @@ module.exports = {
       'Cities',
       [
         {
-          name: 'Rio de Janeiro',
+          name: 'São Benedito do Sul',
+          externalId: 4752,
+          createdAt: new Date(),
+          updatedAt: new Date(),
+        },
+        {
+          name: 'São Bento do Norte',
+          externalId: 4757,
           createdAt: new Date(),
           updatedAt: new Date(),
         },
       ],
       { returning: true },
     );
-    const cityId = cities[0].id;
     const subscribers = await queryInterface.bulkInsert(
       'Subscribers',
       [
         {
           fullname: 'Ariel Choque',
-          cityId: cityId,
+          cityId: cities[0].id,
           isEnabled: true,
           createdAt: new Date(),
           updatedAt: new Date(),
         },
         {
           fullname: 'Jose Pepe',
-          cityId: cityId,
+          cityId: cities[1].id,
+          isEnabled: true,
+          createdAt: new Date(),
+          updatedAt: new Date(),
+        },
+        {
+          fullname: 'Jose Pepe v2',
+          cityId: cities[1].id,
           isEnabled: false,
           createdAt: new Date(),
           updatedAt: new Date(),
@@ -35,13 +48,18 @@ module.exports = {
       ],
       { returning: true },
     );
-    const subscriberId = subscribers[0].id;
     await queryInterface.bulkInsert(
       'ContactMethods',
       [
         {
           name: 'Web',
-          subscriberId: subscriberId,
+          subscriberId: subscribers[0].id,
+          createdAt: new Date(),
+          updatedAt: new Date(),
+        },
+        {
+          name: 'Web',
+          subscriberId: subscribers[1].id,
           createdAt: new Date(),
           updatedAt: new Date(),
         },

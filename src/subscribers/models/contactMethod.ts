@@ -1,7 +1,21 @@
 import { Table, Model, Column, BelongsTo } from 'sequelize-typescript';
 import { Subscriber } from './subscriber.entity';
 
-//Anotaciones: uso de clase abstracta
+//Anotations: uso de clase abstracta
+abstract class ContactMethodv2 {
+  id: number;
+  name: string;
+
+  abstract sendNotification(): void;
+}
+
+class Web extends ContactMethodv2 {
+  public sendNotification() {
+    console.log('This notification is sent by web');
+  }
+}
+//
+
 @Table
 export class ContactMethod extends Model {
   id?: number;

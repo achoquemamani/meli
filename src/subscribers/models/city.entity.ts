@@ -7,6 +7,10 @@ export class City extends Model {
 
   @ApiProperty()
   @Column
+  externalId: number;
+
+  @ApiProperty()
+  @Column
   name: string;
 
   public isCoastal() {
