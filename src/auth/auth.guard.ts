@@ -2,17 +2,20 @@ import {
   CanActivate,
   ExecutionContext,
   Injectable,
+  Logger,
   UnauthorizedException,
 } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import constants from './constants';
 import { Request } from 'express';
 import { Reflector } from '@nestjs/core';
-import { Role } from '../users/roles/role.enum';
-import { ROLES_KEY } from '../users/roles/roles.decorator';
+import { Role } from '../users/models/roles/role.enum';
+import { ROLES_KEY } from '../users/models/roles/roles.decorator';
 
 @Injectable()
 export class AuthGuard implements CanActivate {
+  private readonly logger = new Logger(AuthGuard.name);
+
   constructor(
     private jwtService: JwtService,
     private reflector: Reflector,
@@ -33,7 +36,13 @@ export class AuthGuard implements CanActivate {
         secret: constants.call('jwtConstants').secret,
       });
       request['user'] = payload;
-    } catch {
+    } catch (e) {
+      const error = {
+        name: e.name,
+        message: e.message,
+        description: e.expiredAt,
+      };
+      this.logger.error(JSON.stringify(error));
       throw new UnauthorizedException();
     }
     const user = request.user;

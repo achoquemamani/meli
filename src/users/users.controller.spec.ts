@@ -1,7 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { UsersController } from './users.controller';
 import { UsersService } from './users.service';
-import { User } from './user.entity';
+import { User } from './models/user.entity';
 import { ExceptionHandling } from '../utils/exception.handling';
 
 describe('UsersController', () => {

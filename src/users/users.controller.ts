@@ -1,7 +1,7 @@
 import { Controller, Get, HttpCode, HttpStatus, Logger } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import { UsersService } from './users.service';
-import { User } from './user.entity';
+import { User } from './models/user.entity';
 import { ExceptionHandling } from '../utils/exception.handling';
 
 @ApiTags('Auth')

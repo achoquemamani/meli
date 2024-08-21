@@ -1,5 +1,5 @@
 import { BadRequestException, Inject, Injectable } from '@nestjs/common';
-import { User } from './user.entity';
+import { User } from './models/user.entity';
 import * as bcrypt from 'bcrypt';
 
 @Injectable()

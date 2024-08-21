@@ -15,9 +15,9 @@ import { AuthGuard } from './auth.guard';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { ExceptionHandling } from '../utils/exception.handling';
 import { SignInDto } from '../users/dto/loginuser';
-import { Roles } from '../users/roles/roles.decorator';
-import { Role } from '../users/roles/role.enum';
-import { User } from '../users/user.entity';
+import { Roles } from '../users/models/roles/roles.decorator';
+import { Role } from '../users/models/roles/role.enum';
+import { User } from '../users/models/user.entity';
 
 @ApiTags('Auth')
 @Controller('auth')

@@ -3,7 +3,7 @@ import { JwtService } from '@nestjs/jwt';
 import { ExceptionHandling } from '../utils/exception.handling';
 import { AuthController } from './auth.controller';
 import { UsersService } from '../users/users.service';
-import { User } from '../users/user.entity';
+import { User } from '../users/models/user.entity';
 import { AuthService } from './auth.service';
 
 describe('AuthController', () => {

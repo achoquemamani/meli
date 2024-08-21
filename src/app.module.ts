@@ -5,6 +5,7 @@ import { UsersModule } from './users/users.module';
 import { ScheduleModule } from '@nestjs/schedule';
 import { ConfigModule } from '@nestjs/config';
 import { AuthModule } from './auth/auth.module';
+import { SubscribersModule } from './subscribers/subscribers.module';
 
 @Module({
   imports: [
@@ -16,6 +17,7 @@ import { AuthModule } from './auth/auth.module';
     ScheduleModule.forRoot(),
     AuthModule,
     UsersModule,
+    SubscribersModule,
   ],
   controllers: [AppController],
   providers: [AppService],
