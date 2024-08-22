@@ -4,6 +4,7 @@ import {
   HttpCode,
   HttpStatus,
   Logger,
+  Post,
   Query,
 } from '@nestjs/common';
 import { ApiQuery, ApiTags } from '@nestjs/swagger';
@@ -23,12 +24,22 @@ export class NotificationsController {
   ) {}
 
   @HttpCode(HttpStatus.OK)
+  @Post('sendNotifications')
+  async sendNotifications(): Promise<void> {
+    try {
+      await this.notificationsService.sendNotifications();
+    } catch (error) {
+      this.exceptionHandling.handleException(this.LOGGER, error);
+    }
+  }
+
+  @HttpCode(HttpStatus.OK)
   @Get('getForecasts')
   @ApiQuery({
     name: 'cityId',
     type: Number,
     description: 'City external id',
-    required: false,
+    required: true,
   })
   async getForecasts(@Query('cityId') cityId: string): Promise<Forecast[]> {
     try {
@@ -46,7 +57,7 @@ export class NotificationsController {
     name: 'cityId',
     type: Number,
     description: 'City external id',
-    required: false,
+    required: true,
   })
   async getWaveForecasts(
     @Query('cityId') cityId: string,

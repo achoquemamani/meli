@@ -32,6 +32,12 @@ export class Subscriber extends Model {
   @Column
   isEnabled: boolean;
 
+  public sendNotifications(message: string) {
+    this.contactMethods.forEach((contactMethod) => {
+      contactMethod.sendNotification(message);
+    });
+  }
+
   public closeAccount(phrase: string) {
     this.isEnabled = false;
   }

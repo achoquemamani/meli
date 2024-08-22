@@ -3,7 +3,9 @@ import { NotificationsService } from './notifications.service';
 import { NotificationsController } from './notifications.controller';
 import { MeteorologicalService } from './meteorological.service/meteorological.service';
 import { MeteorologicalServiceCPTEC } from './meteorological.service/meteorological.CPTEC.service';
-import { ExceptionHandling } from 'src/utils/exception.handling';
+import { ExceptionHandling } from '../utils/exception.handling';
+import { SubscribersService } from '../subscribers/subscribers.service';
+import { subscribersProviders } from '../subscribers/subscribers.provider';
 
 @Module({
   providers: [
@@ -11,6 +13,8 @@ import { ExceptionHandling } from 'src/utils/exception.handling';
     MeteorologicalService,
     MeteorologicalServiceCPTEC,
     ExceptionHandling,
+    SubscribersService,
+    ...subscribersProviders,
   ],
   controllers: [NotificationsController],
 })

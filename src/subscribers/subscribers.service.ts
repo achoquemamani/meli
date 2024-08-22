@@ -1,5 +1,4 @@
 import { Inject, Injectable, Logger } from '@nestjs/common';
-import { Cron } from '@nestjs/schedule';
 import { Subscriber } from './models/subscriber.entity';
 import { Result } from '../utils/result';
 import { City } from './models/city.entity';
@@ -32,24 +31,6 @@ export class SubscribersService {
     } catch (ex) {
       this.logger.log(`GET SUBSCRIBERS: ${Result.FAIL}`);
       throw ex;
-    }
-  }
-
-  @Cron('45 * * * * *')
-  async handleCron() {
-    try {
-      this.logger.log(`SENDING NOTIFICATIONS: ${Result.IN_PROGRESS}`);
-      const enabledSubscribers: Subscriber[] = await this.find({
-        isEnabled: true,
-      });
-      enabledSubscribers.forEach((subscriber) => {
-        subscriber.contactMethods.forEach((contactMethod) => {
-          contactMethod.sendNotification('');
-        });
-      });
-      this.logger.log(`SENDING NOTIFICATIONS: ${Result.SUCCESS}`);
-    } catch {
-      this.logger.log(`SENDING NOTIFICATIONS: ${Result.FAIL}`);
     }
   }
 }

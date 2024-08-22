@@ -1,7 +1,7 @@
 import { Injectable, Logger } from '@nestjs/common';
 import { Result } from '../../utils/result';
 import { Forecast } from '../models/forecast';
-import { WaveForecast } from '../models/wave.forecast';
+import { Period, WaveForecast } from '../models/wave.forecast';
 import { MeteorologicalServiceCPTEC } from './meteorological.CPTEC.service';
 const { convertXML } = require('simple-xml-to-json');
 
@@ -21,13 +21,13 @@ export class MeteorologicalService {
           return JSON.stringify(child.previsao);
         })
         .map((child) => {
-          return {
-            day: child.previsao.children[0].dia.content,
-            time: child.previsao.children[1].tempo.content,
-            maximum: parseInt(child.previsao.children[2].maxima.content),
-            minimum: parseInt(child.previsao.children[3].minima.content),
-            iuv: parseFloat(child.previsao.children[4].iuv.content),
-          };
+          const day = child.previsao.children[0].dia.content;
+          const time = child.previsao.children[1].tempo.content;
+          const maximum = parseInt(child.previsao.children[2].maxima.content);
+          const minimum = parseInt(child.previsao.children[3].minima.content);
+          const iuv = parseFloat(child.previsao.children[4].iuv.content);
+          const forecast = new Forecast(day, time, maximum, minimum, iuv);
+          return forecast;
         });
       this.logger.log(`GETTING FORECASTS: ${Result.SUCCESS}`);
       return forecasts;
@@ -51,21 +51,31 @@ export class MeteorologicalService {
         );
       });
       const getPeriod = (periodJson) => {
-        return {
-          day: periodJson.children[0].dia.content,
-          agitacao: periodJson.children[1].agitacao.content,
-          altura: parseFloat(periodJson.children[2].altura.content),
-          direcao: periodJson.children[3].direcao.content,
-          vento: parseFloat(periodJson.children[4].vento.content),
-          vento_dir: periodJson.children[5].vento_dir.content,
-        };
+        const day = periodJson.children[0].dia.content;
+        const agitacao = periodJson.children[1].agitacao.content;
+        const altura = parseFloat(periodJson.children[2].altura.content);
+        const direcao = periodJson.children[3].direcao.content;
+        const vento = parseFloat(periodJson.children[4].vento.content);
+        const vento_dir = periodJson.children[5].vento_dir.content;
+        const period = new Period(
+          day,
+          agitacao,
+          altura,
+          direcao,
+          vento,
+          vento_dir,
+        );
+        return period;
       };
 
-      const waveForecast: WaveForecast = {
-        morning: getPeriod(waveForecastNodes[0].manha),
-        afternoon: getPeriod(waveForecastNodes[1].tarde),
-        evening: getPeriod(waveForecastNodes[2].noite),
-      };
+      const morning = getPeriod(waveForecastNodes[0].manha);
+      const afternoon = getPeriod(waveForecastNodes[1].tarde);
+      const evening = getPeriod(waveForecastNodes[2].noite);
+      const waveForecast: WaveForecast = new WaveForecast(
+        morning,
+        afternoon,
+        evening,
+      );
       this.logger.log(`GETTING WAVE FORECASTS: ${Result.SUCCESS}`);
       return waveForecast;
     } catch (e) {

@@ -2,6 +2,8 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { NotificationsService } from './notifications.service';
 import { MeteorologicalService } from './meteorological.service/meteorological.service';
 import { MeteorologicalServiceCPTEC } from './meteorological.service/meteorological.CPTEC.service';
+import { SubscribersService } from '../subscribers/subscribers.service';
+import { Subscriber } from '../subscribers/models/subscriber.entity';
 
 describe('NotificationsService', () => {
   let service: NotificationsService;
@@ -15,6 +17,7 @@ describe('NotificationsService', () => {
           provide: MeteorologicalServiceCPTEC,
           useClass: MeteorologicalServiceCPTEC,
         },
+        { provide: SubscribersService, useValue: Subscriber },
       ],
     }).compile();
 
