@@ -21,7 +21,7 @@ export class ContactMethod extends Model {
   id?: number;
 
   @Column
-  name: string;
+  type: string;
 
   @BelongsTo(() => Subscriber, 'subscriberId')
   subscriber: Subscriber;

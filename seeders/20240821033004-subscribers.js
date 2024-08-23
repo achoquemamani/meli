@@ -52,13 +52,13 @@ module.exports = {
       'ContactMethods',
       [
         {
-          name: 'Web',
+          type: 'Web',
           subscriberId: subscribers[0].id,
           createdAt: new Date(),
           updatedAt: new Date(),
         },
         {
-          name: 'Web',
+          type: 'Web',
           subscriberId: subscribers[1].id,
           createdAt: new Date(),
           updatedAt: new Date(),
