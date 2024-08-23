@@ -97,12 +97,9 @@ Link: http://localhost:3000/api
 
 ### Seed
 
-For executing the seed, it 's necesary to execute the following curl
+For executing the seed, it 's necesary to execute the following command
 ```bash
-curl -X 'POST' \
-  'http://localhost:3000/seed' \
-  -H 'accept: */*' \
-  -d ''
+yarn seed
 ```
 
 ### Authentication Guide
@@ -123,17 +120,6 @@ curl -X 'POST' \
   "username": ${user},
   "password": ${password}"
 }'
-```
-
-## Diagram
-
-```mermaid
-flowchart LR
-
-A[Hard] -->|Text| B(Round)
-B --> C{Decision}
-C -->|One| D[Result 1]
-C -->|Two| E[Result 2]
 ```
 
 
